@@ -13,7 +13,11 @@ function clamp(x, min, max) {
 }
 
 var hand = zig.EngageFirstUserInSession();
+var pushDetector = zig.controls.PushDetector();
+var pullDetector = zig.controls.PullDetector();
  
+// hand
+
 hand.addEventListener('sessionstart', function(focusPosition) {
     console.log("started");
     addPull();
@@ -38,11 +42,9 @@ hand.addEventListener('sessionupdate', function(position) {
 });
 
 // PushDetector
-var pushDetector = zig.controls.PushDetector();
 
 function addPush(){
     pushDetector.addEventListener('push', function(pd) {
-
         console.log('PushDetector: Push');
         ce.classList.add('pushed');
         var click=sound.cloneNode();
@@ -64,10 +66,7 @@ function removePush(){
     pushDetector.removeEventListener('click');
 }
 
-zig.singleUserSession.addListener(pushDetector);
-
 //PullDetector
-var pullDetector = zig.controls.PullDetector();
 
 function addPull(){
     console.log("add pull");
@@ -93,7 +92,7 @@ function removePull(){
     pullDetector.removeEventListener('click');
 }
 
-
+zig.singleUserSession.addListener(pushDetector);
 zig.singleUserSession.addListener(pullDetector);
 
 zig.addListener(hand);
