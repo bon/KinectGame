@@ -1,3 +1,10 @@
+console.log("Browser plugin installed: " + zig.pluginInstalled);
+console.log("Browser plugin version: " + zig.pluginVersion);
+console.log("Zig.js version: " + zig.version);
+zig.addEventListener('statuschange', function() {
+        console.log("Sensor connected: " + zig.sensorConnected);
+});
+
 var sound = new Audio("PUNCH.wav");
 sound.preload = 'auto';
 sound.load();
