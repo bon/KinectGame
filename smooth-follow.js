@@ -1,6 +1,8 @@
 console.log("Browser plugin installed: " + zig.pluginInstalled);
 console.log("Browser plugin version: " + zig.pluginVersion);
 console.log("Zig.js version: " + zig.version);
+console.log("Sensor connected: " + zig.sensorConnected);
+
 zig.addEventListener('statuschange', function() {
         console.log("Sensor connected: " + zig.sensorConnected);
 });
