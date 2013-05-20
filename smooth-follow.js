@@ -7,6 +7,7 @@ zig.addEventListener('statuschange', function() {
         console.log("Sensor connected: " + zig.sensorConnected);
 });
 
+var delay = 500;
 var sound = new Audio("PUNCH.wav");
 sound.preload = 'auto';
 sound.load();
@@ -53,12 +54,16 @@ hand.addEventListener('sessionupdate', function(position) {
 // PushDetector
 
 function addPush(){
-    pushDetector.addEventListener('push', function(pd) {
-        console.log('PushDetector: Push');
-        ce.classList.add('pushed');
-        var click=sound.cloneNode();
-        click.play();
-    });
+    console.log("add push");
+    pushDetector.addEventListener('push',
+                                  function(pd) {
+                                    setTimeout(addPull, delay);
+                                    removePull();
+                                    console.log('PushDetector: Push');
+                                    ce.classList.add('pushed');
+                                    var click=sound.cloneNode();
+                                    click.play();
+                                  });
     pushDetector.addEventListener('release', function(pd) {
         console.log('PushDetector: Release');
         ce.classList.remove('pushed');
@@ -79,12 +84,15 @@ function removePush(){
 
 function addPull(){
     console.log("add pull");
-    pullDetector.addEventListener('pull', function(pd) {
-        console.log('PullDetector: Pull');
-        ce.classList.add('pulled');
-        var click=sound.cloneNode();
-        click.play();
-    });
+    pullDetector.addEventListener('pull',
+                                  function(pd) {
+                                    setTimeout(addPush, delay);;
+                                    removePush();
+                                    console.log('PullDetector: Pull');
+                                    ce.classList.add('pulled');
+                                    var click=sound.cloneNode();
+                                    click.play();
+                                  });
     pullDetector.addEventListener('release', function(pd) {
         console.log('PullDetector: Release');
         ce.classList.remove('pulled');
